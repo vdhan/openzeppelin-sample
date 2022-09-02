@@ -1,10 +1,10 @@
 async function main() {
-  const CONTRACT = 'Box';
-  console.log('Deploying contract:', CONTRACT);
+  const CONTRACT = 'Box'; // Contract for deploying
+  console.log(CONTRACT, 'deploying...');
 
-  const Box = await ethers.getContractFactory(CONTRACT);
-  const box = await Box.deploy();
-  console.log('Contract deployed to address:', box.address);
+  const Contract = await ethers.getContractFactory(CONTRACT);
+  const smartContract = await Contract.deploy();
+  console.log('Contract deployed to address:', smartContract.address);
 }
 
 main()

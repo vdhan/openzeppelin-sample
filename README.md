@@ -1,6 +1,6 @@
 # Sample OpenZeppelin Project
 
-For developing local:
+## For deploying local:
 
 ```shell
 pnpm install
@@ -8,8 +8,9 @@ npx hardhat compile
 npx hardhat node
 ```
 
-Open new terminal tab
+Open other terminal tab
 
 ```shell
 npx hardhat run --network localhost scripts/deploy.js
+npx hardhat test
 ```
