@@ -1,7 +1,7 @@
 {
     "name": "openzeppelin-sample",
     "version": "1.0.0",
-    "description": "Smart contract with OpenZeppelin",
+    "description": "Smart contract uses OpenZeppelin",
     "author": "Vũ Đắc Hoàng Ân",
     "license": "GPL-3.0-or-later",
     "dependencies": {
