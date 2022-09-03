@@ -1,15 +1,21 @@
+const {ethers, upgrades} = require('hardhat');
+
 async function main() {
   const CONTRACT = 'Box'; // Contract for deploying
-  console.log(CONTRACT, 'deploying...');
+  console.log(`${CONTRACT} deploying...`);
 
   const Contract = await ethers.getContractFactory(CONTRACT);
-  const smartContract = await Contract.deploy();
-  console.log('Contract deployed to address:', smartContract.address);
+  const smartContract = await upgrades.deployProxy(
+    Contract,
+    [], // parameters of function initialize()
+    {initializer: 'initialize'}
+  );
+
+  await smartContract.deployed();
+  console.log(`Contract deployed to address: ${smartContract.address}`);
 }
 
-main()
-  .then(() => process.exit(0))
-  .catch(error => {
-    console.error(error);
-    process.exit(1);
-  });
+main().then(() => process.exit(0)).catch(error => {
+  console.error(error);
+  process.exit(1);
+});

@@ -1,26 +1,31 @@
-require("@nomicfoundation/hardhat-chai-matchers");
-const { expect } = require('chai');
+require('@nomicfoundation/hardhat-chai-matchers');
+const {loadFixture} = require('@nomicfoundation/hardhat-network-helpers');
+const {expect} = require('chai');
 
 describe('Box', function () {
-  before(async function () {
-    this.Box = await ethers.getContractFactory('Box');
-  });
+  async function fixture() {
+    const Box = await ethers.getContractFactory('Box');
+    const box = await upgrades.deployProxy(Box, [], {initializer: 'initialize'});
+    await box.deployed();
 
-  beforeEach(async function () {
-    this.box = await this.Box.deploy();
-  });
+    const [owner, addr1, addr2] = await ethers.getSigners();
+    return {box, owner, addr1, addr2};
+  }
 
   it('Retrieve previous value stored', async function () {
-    await this.box.store(43);
-    expect(await this.box.retrieve()).to.equal(43);
+    const {box} = await loadFixture(fixture);
+
+    await box.store(43);
+    expect(await box.retrieve()).to.equal(43);
   });
 
   it('store emits an event', async function () {
-    await expect(this.box.store(17)).to.emit(this.box, 'ValueChanged').withArgs(17);
+    const {box} = await loadFixture(fixture);
+    await expect(box.store(17)).to.emit(box, 'ValueChanged').withArgs(17);
   });
 
   it('non owner cannot store a value', async function () {
-    const [_, other] = await ethers.getSigners();
-    await expect(this.box.connect(other).store(71)).to.be.revertedWith('Ownable: caller is not the owner');
+    const {box, addr1} = await loadFixture(fixture);
+    await expect(box.connect(addr1).store(71)).to.be.reverted;
   });
 });

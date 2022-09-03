@@ -14,3 +14,9 @@ Open other terminal tab
 npx hardhat run --network localhost scripts/deploy.js
 npx hardhat test
 ```
+
+Upgrade contract
+
+```shell
+npx hardhat run --network localhost scripts/upgrade.js
+```
