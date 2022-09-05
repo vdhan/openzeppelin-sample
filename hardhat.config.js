@@ -25,7 +25,7 @@ module.exports = {
   gasReporter: {
     enabled: reportGas ? true : false,
     currency: 'VND',
-    token: 'BNB',
+    token: 'ETH',
     gasPrice: 5,
     coinmarketcap: coinMarketCap
   }
