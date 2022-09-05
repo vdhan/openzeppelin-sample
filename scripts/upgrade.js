@@ -2,11 +2,12 @@ const {ethers, upgrades} = require('hardhat');
 
 async function main() {
   const CONTRACT = 'Box';
-  const ADDRESS = '0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0'; // Contract address
+  const ADDRESS = '0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512'; // Contract address
   console.log(`${CONTRACT} upgrading to ${ADDRESS}`);
 
   const Contract = await ethers.getContractFactory(CONTRACT);
-  await upgrades.upgradeProxy(ADDRESS, Contract);
+  await upgrades.upgradeProxy(ADDRESS, Contract, {kind: 'uups'});
+  // await upgrades.forceImport(ADDRESS, Contract, {kind: 'uups'}); // If error, use this instead upgradeProxy
   console.log(`${CONTRACT} upgraded`);
 }
 

@@ -5,8 +5,7 @@ const {expect} = require('chai');
 describe('Box', function () {
   async function fixture() {
     const Box = await ethers.getContractFactory('Box');
-    const box = await upgrades.deployProxy(Box, [], {initializer: 'initialize'});
-    await box.deployed();
+    const box = await upgrades.deployProxy(Box, {kind: 'uups'});
 
     const [owner, addr1, addr2] = await ethers.getSigners();
     return {box, owner, addr1, addr2};

@@ -5,13 +5,7 @@ async function main() {
   console.log(`${CONTRACT} deploying...`);
 
   const Contract = await ethers.getContractFactory(CONTRACT);
-  const smartContract = await upgrades.deployProxy(
-    Contract,
-    [], // parameters of function initialize()
-    {initializer: 'initialize'}
-  );
-
-  await smartContract.deployed();
+  const smartContract = await upgrades.deployProxy(Contract, {kind: 'uups'});
   console.log(`Contract deployed to address: ${smartContract.address}`);
 }
 

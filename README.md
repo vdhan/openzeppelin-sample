@@ -12,6 +12,7 @@ Open other terminal tab
 
 ```shell
 npx hardhat run --network localhost scripts/deploy.js
+npx hardhat console --network localhost
 npx hardhat test
 ```
 
